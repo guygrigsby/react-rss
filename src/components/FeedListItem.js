@@ -37,9 +37,12 @@ const FeedListItem = (props) => {
       >
         <span className="card">
           <span className="card-header">
-            <FeedHeader togglePane={togglePane} {...props} />
-            <br />
-            <i onClick={togglePane} className={`${icon}`}></i>
+            <FeedHeader
+              togglePaneElement={
+                <i onClick={togglePane} className={`${icon}`}></i>
+              }
+              {...props}
+            />
           </span>
           {paneOpen ? <FeedItemAccordian item={item} {...props} /> : null}
         </span>
