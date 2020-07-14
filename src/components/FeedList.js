@@ -1,41 +1,44 @@
-import React from 'react';
-import rss from '../services/rss.js';
-import FeedListItem from './FeedListItem';
-import PropTypes from 'prop-types';
+import React from 'react'
+import FeedListItem from './FeedListItem'
+import PropTypes from 'prop-types'
 
-const FeedList = ({ feedURL }) => {
-  const [items, setItems] = React.useState();
-
-  React.useEffect(() => {
-    const getFeed = async () => {
-      try {
-        const items = await rss.fetchCurrent(feedURL);
-        setItems(items);
-      } catch (e) {
-        console.log('caught exception', e, 'in Homepage');
-      }
-    };
-    getFeed();
-  }, [feedURL]);
-
+const FeedList = (props) => {
+  const { items, faves } = props
   if (!items || items.length === 0) {
     return (
-      <ul className="list-group">
-        <li className="list-group-item">{"There's nothing here"}</li>
-      </ul>
-    );
+      <div className="progress">
+        <div
+          className="progress-bar progress-bar-striped progress-bar-animated"
+          role="progressbar"
+          aria-valuenow="75"
+          aria-valuemin="0"
+          aria-valuemax="100"
+        ></div>
+      </div>
+    )
   }
   return (
-    <ul className="list-unstyled">
-      {items.map((item, idx) => {
-        return <FeedListItem key={idx} isActive={idx === 0} item={item} />;
-      })}
-    </ul>
-  );
-};
+    <div className="accordion" id="feedaccordian">
+      <ul className="list-unstyled">
+        {items.map((item, idx) => {
+          const itemID = item.querySelector('guid').innerHTML
+          return (
+            <FeedListItem
+              key={idx}
+              id={`${idx}`}
+              isFave={faves.has(itemID)}
+              item={item}
+              {...props}
+            />
+          )
+        })}
+      </ul>
+    </div>
+  )
+}
 
 FeedList.propTypes = {
-  //feedContents: PropTypes.instanceOf(XMLDocument),
-  feedURL: PropTypes.string,
-};
-export default FeedList;
+  items: PropTypes.arrayOf(PropTypes.instanceOf(Element)),
+  faves: PropTypes.instanceOf(Map),
+}
+export default FeedList

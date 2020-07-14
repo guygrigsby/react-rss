@@ -1,8 +1,21 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
+import FeedList from '../components/FeedList.js'
 
-const Saved = () => {
-  return <></>;
-};
+const Saved = (props) => {
+  const { faves } = props
+  const items = Array.from(faves, ([, value]) => value)
+  return (
+    <div className="container-fluid m-2 p-2">
+      <div className="row">
+        <div className="col">{<FeedList items={items} {...props} />}</div>
+      </div>
+    </div>
+  )
+}
 
-export default Saved;
+Saved.propTypes = {
+  faves: PropTypes.instanceOf(Map),
+}
+
+export default Saved

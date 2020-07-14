@@ -1,39 +1,52 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import FeedItemAccordian from '../components/FeedItemAccordian.js'
+import FeedHeader from '../components/FeedHeader.js'
+import PropTypes from 'prop-types'
 
-const FeedListItem = ({ isActive, item, handleClick }) => {
-  const active = isActive ? 'active' : '';
-  const imgsrc =
-    item.getElementsByTagName('media:content')[0] &&
-    item.getElementsByTagName('media:content')[0].getAttribute('url');
-  if (isActive) {
-    console.log('rendering feed item', item);
-    console.log('image url', imgsrc);
+const FeedListItem = (props) => {
+  const { id, item } = props
+  const [paneOpen, setPaneOpen] = React.useState(false)
+
+  const togglePane = (e) => {
+    e.stopPropagation()
+    e.preventDefault()
+
+    console.log('toggle reading pane', paneOpen)
+    setPaneOpen(!paneOpen)
   }
 
+  const windowName = 'NYTimes'
+
+  const link =
+    item.getElementsByTagName('atom:link')[0] &&
+    item.getElementsByTagName('atom:link')[0].getAttribute('href')
+  const rel =
+    item.getElementsByTagName('atom:link')[0] &&
+    item.getElementsByTagName('atom:link')[0].getAttribute('rel')
+  console.log('link', link, 'rel', rel)
+
   return (
-    <>
-      <li
+    <li>
+      <div
+        className="list-group-item-action"
         type="button"
-        onClick={() => handleClick(item)}
-        href={item.querySelector('link').innerHTML}
-        className={`media list-group-item-action ${active}`}
+        onClick={() => window.open(link, windowName, `rel=${rel}`)}
+        data-toggle="collapse"
+        data-target={`#collapse-${id}`}
       >
-        <img className="mr-3" src={imgsrc} alt="placeholder" />
-        <div className="media-body">
-          <h5 className="mb-1">{item.querySelector('title').innerHTML}</h5>
-          <small></small>
-          <small>{item.querySelector('pubDate').innerHTML}</small>
-          <p className="mb-1">{item.querySelector('description').innerHTML}</p>
-        </div>
-      </li>
-    </>
-  );
-};
+        <span className="card">
+          <span className="card-header">
+            <FeedHeader togglePane={togglePane} {...props} />
+          </span>
+          {paneOpen ? <FeedItemAccordian item={item} {...props} /> : null}
+        </span>
+      </div>
+    </li>
+  )
+}
 
 FeedListItem.propTypes = {
-  isActive: PropTypes.bool,
-  handleClick: PropTypes.func,
+  id: PropTypes.string,
   item: PropTypes.instanceOf(Element),
-};
-export default FeedListItem;
+}
+export default FeedListItem

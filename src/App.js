@@ -1,20 +1,32 @@
-import React, { useState } from 'react';
-import Navbar from './components/Nav.js';
-import { Switch, Route } from 'react-router-dom';
-import Home from './pages/Home.js';
-import Saved from './pages/Saved.js';
-import './App.scss';
-
+import React, { useState } from 'react'
+import Navbar from './components/Nav.js'
+import { Switch, Route } from 'react-router-dom'
+import Home from './pages/Home.js'
+import Saved from './pages/Saved.js'
+import './App.scss'
 const App = () => {
   const [feedURL, setFeedURL] = useState(
     'https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml',
-  );
-  const [feed, setFeed] = useState();
+  )
+  const [items, setItems] = useState()
+  const [faves, setFaves] = useState(new Map())
 
-  const navFormClick = (url) => {
-    console.log('setting feed', url);
-    setFeedURL(url);
-  };
+  const toggleFave = (e, item) => {
+    e.preventDefault()
+    e.stopPropagation()
+    const itemID = item.querySelector('guid').innerHTML
+
+    const f = faves
+    if (f.has(itemID)) {
+      f.delete(itemID)
+      console.log('fave removed', item)
+    } else {
+      f.set(itemID, item)
+      console.log('fave added', item)
+    }
+    console.log('faves', faves)
+    setFaves(new Map(f))
+  }
 
   return (
     <div className="App">
@@ -22,7 +34,6 @@ const App = () => {
         title="RSS Reader"
         feedURL={feedURL}
         setFeedURL={setFeedURL}
-        submitFeed={() => navFormClick(feedURL)}
         menuItems={[
           {
             name: 'Home',
@@ -37,7 +48,10 @@ const App = () => {
         ]}
       />
       <Switch>
-        <Route path="/saved" render={() => <Saved />} />
+        <Route
+          path="/saved"
+          render={() => <Saved toggleFave={toggleFave} faves={faves} />}
+        />
 
         <Route
           exact
@@ -45,14 +59,16 @@ const App = () => {
           render={() => (
             <Home
               feedURL={feedURL}
-              setFeedContents={setFeed}
-              feedContents={feed}
+              setItems={setItems}
+              items={items}
+              faves={faves}
+              toggleFave={toggleFave}
             />
           )}
         />
       </Switch>
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App
