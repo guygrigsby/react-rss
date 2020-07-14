@@ -4,10 +4,12 @@ import Favorite from './Favorite.js'
 
 const FeedHeader = (props) => {
   const { id, item, togglePane } = props
+
   const creator =
     item.getElementsByTagName('dc:creator').item(0) &&
     item.getElementsByTagName('dc:creator').item(0).childNodes[0].nodeValue
-  console.log('item', item, 'creator', creator)
+
+    console.log('item', item, 'creator', creator)
   return (
     <>
       <div className="d-flex" id={`heading${id}`}>
@@ -16,18 +18,13 @@ const FeedHeader = (props) => {
           <Favorite {...props} />
         </div>
       </div>
+      <small>{item.querySelector('pubDate').innerHTML}</small>
+      <br />
       {creator ? (
         <>
           <small>by {creator}</small>
         </>
       ) : null}
-      <br />
-      <div className="d-flex" id={`heading${id}`}>
-        <small>{item.querySelector('pubDate').innerHTML}</small>
-        <span onClick={togglePane}>
-          <i className="ml-auto fa fa-plus-square-o"></i>
-        </span>
-      </div>
     </>
   )
 }

@@ -16,6 +16,7 @@ const FeedListItem = (props) => {
   }
 
   const windowName = 'NYTimes'
+  const icon = paneOpen ? 'fa fa-minus' : 'fa fa-plus'
 
   const link =
     item.getElementsByTagName('atom:link')[0] &&
@@ -37,6 +38,8 @@ const FeedListItem = (props) => {
         <span className="card">
           <span className="card-header">
             <FeedHeader togglePane={togglePane} {...props} />
+            <br />
+            <i onClick={togglePane} className={`${icon}`}></i>
           </span>
           {paneOpen ? <FeedItemAccordian item={item} {...props} /> : null}
         </span>

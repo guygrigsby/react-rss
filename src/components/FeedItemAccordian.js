@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const FeedItemAccordian = ({ id, item }) => {
-  //const source = item.querySelector('link').innerHTML
   const imgalt =
     item.getElementsByTagName('media:description').item(0) &&
     item.getElementsByTagName('media:description').item(0).childNodes[0]
