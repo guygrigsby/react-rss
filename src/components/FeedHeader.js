@@ -9,7 +9,6 @@ const FeedHeader = (props) => {
     item.getElementsByTagName('dc:creator').item(0) &&
     item.getElementsByTagName('dc:creator').item(0).childNodes[0].nodeValue
 
-  console.log('item', item, 'creator', creator)
   return (
     <div className="d-flex flex-row" id={`heading${id}`}>
       <div className="m-2 p-2">{togglePaneElement}</div>
@@ -35,7 +34,7 @@ const FeedHeader = (props) => {
 
 FeedHeader.propTypes = {
   id: PropTypes.string,
-  togglePane: PropTypes.instanceOf(Element),
+  togglePaneElement: PropTypes.instanceOf(Object),
   item: PropTypes.instanceOf(Element),
 }
 export default FeedHeader

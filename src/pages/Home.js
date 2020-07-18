@@ -23,7 +23,7 @@ const Home = (props) => {
       }
     }
     getFeed()
-  }, [feedURL])
+  }, [feedURL, setItems])
 
   return (
     <div className="container-fluid m-2 p-2">

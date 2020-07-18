@@ -11,7 +11,6 @@ const FeedListItem = (props) => {
     e.stopPropagation()
     e.preventDefault()
 
-    console.log('toggle reading pane', paneOpen)
     setPaneOpen(!paneOpen)
   }
 
@@ -24,7 +23,6 @@ const FeedListItem = (props) => {
   const rel =
     item.getElementsByTagName('atom:link')[0] &&
     item.getElementsByTagName('atom:link')[0].getAttribute('rel')
-  console.log('link', link, 'rel', rel)
 
   return (
     <li>
