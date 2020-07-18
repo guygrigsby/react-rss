@@ -3,18 +3,30 @@ import Navbar from './components/Nav.js'
 import { Switch, Route } from 'react-router-dom'
 import Home from './pages/Home.js'
 import Saved from './pages/Saved.js'
+import RSS from './services/rss.js'
 import './App.scss'
 
 const storageKey = 'reactRssFaves'
 
 const initialFaveState = () => {
   let m
+  const l = JSON.parse(localStorage.getItem(storageKey))
   try {
-    m = new Map(JSON.parse(localStorage.getItem(storageKey)))
-    console.log('getting local storage', m)
+    const m = new Map(
+      l.reduce((map, obj) => {
+        const doc = RSS.convertXML(obj.item)
+        console.log('doc', doc)
+
+        //const xml = doc.querySelector('item')
+        map.set(obj.key, doc)
+        return map
+      }, new Map()),
+    )
+    console.log('read from local storage', l, m)
+    return m
   } catch (e) {
+    console.log('failed to read from local storage', l, e)
     m = new Map()
-    console.log('no local storage using empty map')
   }
   return m
 }
@@ -25,18 +37,21 @@ const App = () => {
   )
   const [items, setItems] = useState()
   const [faves, setFaves] = useState(initialFaveState())
+  const saveFaves = (faves) => {
+    const toSave = JSON.stringify(
+      Array.from(faves).map(([key, item]) => {
+        const xml = item.outerHTML
+        console.log('saving xml', xml)
+        const doc = RSS.convertXML(xml)
+        console.log('testing  xml parse. doc is ', doc)
 
-  React.useEffect(() => {
-    let m
-    try {
-      localStorage.setItem(
-        storageKey,
-        JSON.stringify(Array.from(faves.entries())),
-      )
-    } catch (e) {
-      console.log('Error getting local faves', e, 'faves', m)
-    }
-  }, [faves])
+        return { key: key, item: xml }
+      }),
+    )
+
+    console.log('save collection', toSave)
+    localStorage.setItem(storageKey, toSave)
+  }
 
   const toggleFave = (e, item) => {
     e.preventDefault()
@@ -49,7 +64,9 @@ const App = () => {
     } else {
       f.set(itemID, item)
     }
-    setFaves(new Map(f))
+    const m = new Map(f)
+    setFaves(m)
+    saveFaves(m)
   }
 
   return (

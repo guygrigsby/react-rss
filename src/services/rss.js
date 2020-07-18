@@ -9,7 +9,7 @@ export const handleError = (response) => {
   return response
 }
 
-const convertXML = (xml) => {
+export const convertXML = (xml) => {
   return new window.DOMParser().parseFromString(xml, 'text/xml')
 }
 
@@ -29,6 +29,7 @@ const fetchCurrent = (url) => {
 
 const RSS = {
   fetchCurrent,
+  convertXML,
 }
 
 export default RSS

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 
 const FeedList = (props) => {
   const { items, faves } = props
+  console.log('feedlist incoming items and faves', items, faves)
   if (!items || items.length === 0) {
     return (
       <div className="progress">
