@@ -17,8 +17,9 @@ const initialFaveState = () => {
         const doc = RSS.convertXML(obj.item)
         console.log('doc', doc)
 
-        //const xml = doc.querySelector('item')
-        map.set(obj.key, doc)
+        const xml = doc.querySelector('item')
+        console.log('queryselector item', xml)
+        map.set(obj.key, xml)
         return map
       }, new Map()),
     )
