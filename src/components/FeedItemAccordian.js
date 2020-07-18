@@ -23,9 +23,14 @@ const FeedItemAccordian = ({ id, item }) => {
             alt={imgalt}
           />
           <div className="media-body">
-            <p className="mb-1">
-              {item.querySelector('description').innerHTML}
-            </p>
+            <div
+              className="mb-1"
+              dangerouslySetInnerHTML={{
+                __html: item.getElementsByTagName('description').item(0)
+                  .childNodes[0].nodeValue,
+              }}
+            ></div>
+            <p className="mb-1">{}</p>
           </div>
         </div>
       </div>

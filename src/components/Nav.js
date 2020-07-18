@@ -1,26 +1,29 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import React from 'react'
+import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
-const Navbar = ({ title, feedURL, setFeedURL, menuItems }) => {
-  const [url, setURL] = React.useState(feedURL);
+const Navbar = ({ title, feeds, setFeeds, menuItems }) => {
+  const [url, setURL] = React.useState('')
 
   const handleChange = (e) => {
-    const url = e.target.value;
-    console.log('update URL', url);
-    setURL(url);
-  };
+    const url = e.target.value
+    console.log('update URL', url)
+    setURL(url)
+  }
 
   const handleSubmit = (e) => {
-    setFeedURL(url);
-    console.log('setting URL', url);
-    e.preventDefault();
-  };
+    e.preventDefault()
+    const copy = [...feeds]
+    copy.push(url)
+    console.log('copy', copy)
+    setFeeds(copy)
+    console.log('setting URL', url)
+  }
+  console.log('feeds in nav', feeds)
 
   return (
     <nav className="navbar nav-tabs">
       <div>
-        <i className="fas fa-rss m-2"></i>
         <span className="navbar-text">{title}</span>
       </div>
       {menuItems.map((item, idx) => (
@@ -32,24 +35,24 @@ const Navbar = ({ title, feedURL, setFeedURL, menuItems }) => {
       <form className="form-inline" onSubmit={handleSubmit}>
         <input
           className="form-control mr-sm-2"
-          type="text"
+          type="url"
           value={url}
           onChange={handleChange}
         />
         <button className="btn btn-outline-success my-2 my-sm-0">
-          Get Feed
+          Add Feed
         </button>
       </form>
     </nav>
-  );
-};
+  )
+}
 
 Navbar.propTypes = {
   title: PropTypes.string,
   menuItems: PropTypes.arrayOf(PropTypes.any),
-  feedURL: PropTypes.string,
-  setFeedURL: PropTypes.func,
+  feeds: PropTypes.arrayOf(PropTypes.string),
+  setFeeds: PropTypes.func,
   submitFeed: PropTypes.func,
-};
+}
 
-export default Navbar;
+export default Navbar

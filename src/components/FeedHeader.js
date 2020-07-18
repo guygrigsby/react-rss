@@ -16,7 +16,9 @@ const FeedHeader = (props) => {
       <div className="m-2 p-2">{togglePaneElement}</div>
       <div className="d-flex flex-column w-100" id={`heading${id}`}>
         <div className="d-flex flex-row">
-          <h5 className="ml-1">{item.querySelector('title').innerHTML}</h5>
+          <h5 className="ml-1">
+            {item.getElementsByTagName('title').item(0).childNodes[0].nodeValue}
+          </h5>
           <span className="ml-auto">
             <Favorite {...props} />
           </span>

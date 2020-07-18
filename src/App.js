@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom'
 import Home from './pages/Home.js'
 import Saved from './pages/Saved.js'
 import RSS from './services/rss.js'
+import Feeds from './pages/Feeds.js'
 import './App.scss'
 
 const storageKey = 'reactRssFaves'
@@ -15,7 +16,6 @@ const initialFaveState = () => {
     const m = new Map(
       l.reduce((map, obj) => {
         const doc = RSS.convertXML(obj.item)
-
         const xml = doc.querySelector('item')
         map.set(obj.key, xml)
         return map
@@ -29,9 +29,11 @@ const initialFaveState = () => {
 }
 
 const App = () => {
-  const [feedURL, setFeedURL] = useState(
+  const [feeds, setFeeds] = useState([
+    'http://blogs.nasa.gov/stationreport/feed/',
+    'https://hnrss.org/frontpage',
     'https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml',
-  )
+  ])
   const [items, setItems] = useState()
   const [faves, setFaves] = useState(initialFaveState())
   const saveFaves = (faves) => {
@@ -66,8 +68,8 @@ const App = () => {
     <div className="App">
       <Navbar
         title="RSS Reader"
-        feedURL={feedURL}
-        setFeedURL={setFeedURL}
+        setFeeds={setFeeds}
+        feeds={feeds}
         menuItems={[
           {
             name: 'Home',
@@ -79,6 +81,11 @@ const App = () => {
             icon: <i className="fas fa-bookmark"></i>,
             link: '/saved',
           },
+          {
+            name: 'Feeds',
+            icon: <i className="fa fa-rss"></i>,
+            link: '/feeds',
+          },
         ]}
       />
       <Switch>
@@ -86,13 +93,16 @@ const App = () => {
           path="/saved"
           render={() => <Saved toggleFave={toggleFave} faves={faves} />}
         />
+        <Route
+          path="/feeds"
+          render={() => <Feeds setFeeds={setFeeds} feeds={feeds} />}
+        />
 
         <Route
           exact
           path="/"
           render={() => (
             <Home
-              feedURL={feedURL}
               setItems={setItems}
               items={items}
               faves={faves}

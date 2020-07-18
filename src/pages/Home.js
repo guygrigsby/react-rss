@@ -13,6 +13,7 @@ const Home = (props) => {
         setItems(items)
       } catch (e) {
         try {
+          console.log('trying with cors proxy')
           const items = await rss.fetchCurrent(
             `https://cors-anywhere.herokuapp.com/${feedURL}`,
           )
