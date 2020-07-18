@@ -17,30 +17,18 @@ const FeedHeader = (props) => {
       <div className="d-flex flex-column w-100" id={`heading${id}`}>
         <div className="d-flex flex-row">
           <h5 className="ml-1">{item.querySelector('title').innerHTML}</h5>
-          <small className="m-1 ml-2">{publishDate.toLocaleString()}</small>
           <span className="ml-auto">
             <Favorite {...props} />
           </span>
         </div>
-        {creator ? (
-          <>
-            <small className="">by {creator}</small>
-          </>
-        ) : null}
+        <div>
+          <strong>{creator ? <>by {`${creator} `}</> : null}</strong>
+          <small>{publishDate.toLocaleString()}</small>
+        </div>
       </div>
     </div>
   )
 }
-
-// parse a date format of
-// Fri, 17 Jul 2020 10:23:00 +0000
-function parseDate(str) {
-  let p = str.split(' ')
-
-  // new Date(year, month [, day [, hours[, minutes[, seconds[, ms]]]]])
-  return new Date(p[3], p[2])
-}
-
 FeedHeader.propTypes = {
   id: PropTypes.string,
   togglePaneElement: PropTypes.instanceOf(Object),
