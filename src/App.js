@@ -15,18 +15,14 @@ const initialFaveState = () => {
     const m = new Map(
       l.reduce((map, obj) => {
         const doc = RSS.convertXML(obj.item)
-        console.log('doc', doc)
 
         const xml = doc.querySelector('item')
-        console.log('queryselector item', xml)
         map.set(obj.key, xml)
         return map
       }, new Map()),
     )
-    console.log('read from local storage', l, m)
     return m
   } catch (e) {
-    console.log('failed to read from local storage', l, e)
     m = new Map()
   }
   return m
@@ -42,15 +38,11 @@ const App = () => {
     const toSave = JSON.stringify(
       Array.from(faves).map(([key, item]) => {
         const xml = item.outerHTML
-        console.log('saving xml', xml)
-        const doc = RSS.convertXML(xml)
-        console.log('testing  xml parse. doc is ', doc)
 
         return { key: key, item: xml }
       }),
     )
 
-    console.log('save collection', toSave)
     localStorage.setItem(storageKey, toSave)
   }
 
