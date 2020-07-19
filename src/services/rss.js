@@ -66,7 +66,7 @@ const fetchCurrent = (url) => {
     })
 }
 const elemTxt = (tree, sel) => {
-  return tree.querySelector(sel).innerHTML
+  return tree ? tree.querySelector(sel)?.innerHTML : ''
 }
 /* 
  <channel>
