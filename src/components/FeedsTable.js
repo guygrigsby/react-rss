@@ -4,15 +4,13 @@ import FeedTableRow from './FeedTableRow.js'
 
 const FeedsTable = ({ feeds, handleDelete, setModal }) => {
   return (
-    <div className="table-responsive-sm">
+    <div className="table-responsive">
       <table className="table table-striped">
         <thead>
           <tr>
+            <th scope="col">Delete</th>
             <th scope="col">Title</th>
             <th scope="col">URL</th>
-            <th scope="col" className="text-center">
-              Remove
-            </th>
           </tr>
         </thead>
         <tbody>

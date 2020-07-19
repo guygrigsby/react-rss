@@ -21,17 +21,21 @@ const FeedList = (props) => {
     <div className="accordion" id="feedaccordian">
       <ul className="list-unstyled">
         {items.map((item, idx) => {
-          const itemID = item.querySelector('guid').innerHTML
+          const guid = item.querySelector('guid')
           return (
-            <div className="row pb-10 s-1" key={idx}>
-              <FeedListItem
-                key={idx}
-                id={`${idx}`}
-                isFave={faves.has(itemID)}
-                item={item}
-                {...props}
-              />
-            </div>
+            <>
+              {guid ? (
+                <div className="row" key={idx}>
+                  <FeedListItem
+                    key={idx}
+                    id={`${idx}`}
+                    isFave={faves.has(guid.innerHTML)}
+                    item={item}
+                    {...props}
+                  />
+                </div>
+              ) : null}
+            </>
           )
         })}
       </ul>
