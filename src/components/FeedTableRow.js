@@ -34,26 +34,23 @@ const FeedsTableRow = ({ idx, setModal, url, handleDelete }) => {
   return (
     <tr key={idx}>
       <td>
-        <div className="table-remove d-flex justify-content-center">
-          <button
-            type="button"
-            onClick={() => handleDelete(idx)}
-            className="text-center btn btn-secondary btn-rounded btn-sm my-0"
-          >
-            Delete
-          </button>
-        </div>
+        <button
+          type="button"
+          onClick={() => handleDelete(idx)}
+          className="btn btn-secondary"
+        >
+          Delete
+        </button>
       </td>
-      <td id={`row-${idx}`} className="pt-3-half">
+      <td id={`row-${idx}`}>
         <div
-          className="mb-1"
           dangerouslySetInnerHTML={{
             __html: feedInfo.title,
           }}
         ></div>
       </td>
       <td id={`row-${idx}`} className="overflow-hidden">
-        <p className="d-inline-block text-truncate">{url}</p>
+        <small className="d-inline-block text-truncate">{url}</small>
       </td>
     </tr>
   )

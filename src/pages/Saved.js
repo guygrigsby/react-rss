@@ -6,10 +6,8 @@ const Saved = (props) => {
   const { faves } = props
   const items = Array.from(faves, ([, value]) => value)
   return (
-    <div className="container-fluid m-2 p-2">
-      <div className="row">
-        <div className="col">{<FeedList items={items} {...props} />}</div>
-      </div>
+    <div className="container-fluid">
+      <div className="col">{<FeedList items={items} {...props} />}</div>
     </div>
   )
 }

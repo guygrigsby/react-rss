@@ -18,7 +18,7 @@ const FeedList = (props) => {
     )
   }
   return (
-    <div className="accordion" id="feedaccordian">
+    <div className="accordion mt-2" id="feedaccordian">
       <ul className="list-unstyled">
         {items.map((item, idx) => {
           const guid = item.querySelector('guid')

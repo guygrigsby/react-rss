@@ -39,13 +39,11 @@ const Home = (props) => {
   return (
     <div className="container-fluid">
       <div className="col">
-        <div className="row mt-2">
-          {feeds && feeds.length > 0 ? (
-            <div className="col">{<FeedList {...props} />}</div>
-          ) : (
-            <FeedExamples setFeeds={setFeeds} setModal={setModal} />
-          )}
-        </div>
+        {feeds && feeds.length > 0 ? (
+          <div className="col">{<FeedList {...props} />}</div>
+        ) : (
+          <FeedExamples setFeeds={setFeeds} setModal={setModal} />
+        )}
       </div>
     </div>
   )
