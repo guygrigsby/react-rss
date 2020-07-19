@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import FeedsTable from '../components/FeedsTable.js'
+import FeedExamples from '../components/FeedExamples.js'
 
 const Feeds = ({ feeds, setFeeds, setModal }) => {
   const handleDelete = (idx) => {
@@ -10,8 +11,22 @@ const Feeds = ({ feeds, setFeeds, setModal }) => {
     console.log('copy', copy)
     setFeeds(copy)
   }
+  console.log('feeds', feeds, 'feeds cond', feeds && feeds.length > 0)
   return (
-    <FeedsTable feeds={feeds} handleDelete={handleDelete} setModal={setModal} />
+    <div className="container-fluid m-2 p-2">
+      <div className="row">
+        {feeds && feeds.length > 0 ? (
+          <FeedsTable
+            feeds={feeds}
+            setFeeds={setFeeds}
+            handleDelete={handleDelete}
+            setModal={setModal}
+          />
+        ) : (
+          <FeedExamples setFeeds={setFeeds} setModal={setModal} />
+        )}
+      </div>
+    </div>
   )
 }
 Feeds.propTypes = {

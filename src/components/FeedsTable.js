@@ -15,21 +15,24 @@ const FeedsTable = ({ feeds, handleDelete, setModal }) => {
         </tr>
       </thead>
       <tbody>
-        {feeds.map((url, idx) => (
-          <FeedTableRow
-            key={`${idx}-row-key`}
-            idx={idx}
-            url={url}
-            handleDelete={handleDelete}
-            setModal={setModal}
-          />
-        ))}
+        {feeds
+          ? feeds.map((url, idx) => (
+              <FeedTableRow
+                key={`${idx}-row-key`}
+                idx={idx}
+                url={url}
+                handleDelete={handleDelete}
+                setModal={setModal}
+              />
+            ))
+          : null}
       </tbody>
     </table>
   )
 }
 
 FeedsTable.propTypes = {
+  setFeeds: PropTypes.func,
   handleDelete: PropTypes.func,
   feeds: PropTypes.arrayOf(PropTypes.string),
   setModal: PropTypes.func,

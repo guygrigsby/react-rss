@@ -1,10 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import rss from '../services/rss.js'
+import FeedExamples from '../components/FeedExamples.js'
 import FeedList from '../components/FeedList'
 
 const Home = (props) => {
-  const { feeds, setItems, setModal } = props
+  const { feeds, setItems, setFeeds, setModal } = props
   const feedURL = feeds[0]
 
   React.useEffect(() => {
@@ -39,7 +40,11 @@ const Home = (props) => {
   return (
     <div className="container-fluid m-2 p-2">
       <div className="row">
-        <div className="col">{<FeedList {...props} />}</div>
+        {feeds && feeds.length > 0 ? (
+          <div className="col">{<FeedList {...props} />}</div>
+        ) : (
+          <FeedExamples setFeeds={setFeeds} setModal={setModal} />
+        )}
       </div>
     </div>
   )
@@ -47,6 +52,7 @@ const Home = (props) => {
 
 Home.propTypes = {
   setModal: PropTypes.func,
+  setFeeds: PropTypes.func,
   feeds: PropTypes.arrayOf(PropTypes.string),
   setItems: PropTypes.func,
 }

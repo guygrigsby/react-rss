@@ -16,13 +16,7 @@ const initialFaveState = () => {
 const initialFeedState = () => {
   const saved = getFeeds()
   console.log('getting feeds', saved)
-  return saved
-    ? saved
-    : [
-        'http://blogs.nasa.gov/stationreport/feed/',
-        'https://hnrss.org/frontpage',
-        'https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml',
-      ]
+  return saved ? saved : []
 }
 
 const App = () => {
@@ -56,6 +50,7 @@ const App = () => {
         <Modal
           title={modal.title}
           msg={modal.msg}
+          buttons={modal.buttons}
           closeModal={() => setModal(null)}
         />
       ) : (
@@ -106,6 +101,7 @@ const App = () => {
               items={items}
               feeds={feeds}
               faves={faves}
+              setFeeds={setFeeds}
               toggleFave={toggleFave}
               setModal={setModal}
             />
