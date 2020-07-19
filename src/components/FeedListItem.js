@@ -25,30 +25,28 @@ const FeedListItem = (props) => {
 
   return (
     <li className="w-100">
-      <div
-        className="list-group-item-action"
+      <span
+        className="card list-group-item-action"
         type="button"
         onClick={() => window.open(link, { id }, `rel=${rel}`)}
         data-toggle="collapse"
         data-target={`#collapse-${id}`}
       >
-        <span className="card">
-          <span className="card-header">
-            <FeedHeader
-              togglePaneElement={
-                <div
-                  onClick={togglePane}
-                  className="d-flex justify-content-center align-items-center m-2 pr-3"
-                >
-                  <i className={`${icon}`}></i>
-                </div>
-              }
-              {...props}
-            />
-          </span>
-          {paneOpen ? <FeedItemAccordian item={item} {...props} /> : null}
+        <span className="card-header">
+          <FeedHeader
+            togglePaneElement={
+              <div
+                onClick={togglePane}
+                className="d-flex justify-content-center align-items-center m-2 pr-3"
+              >
+                <i className={`${icon}`}></i>
+              </div>
+            }
+            {...props}
+          />
         </span>
-      </div>
+        {paneOpen ? <FeedItemAccordian item={item} {...props} /> : null}
+      </span>
     </li>
   )
 }

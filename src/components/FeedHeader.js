@@ -13,9 +13,7 @@ const FeedHeader = (props) => {
 
   return (
     <div className="d-flex flex-row" id={`heading${id}`}>
-      <div className="d-flex justify-content-center align-items-center m-2 pr-3">
         {togglePaneElement}
-      </div>
       <div className="d-flex flex-column w-100" id={`heading${id}`}>
         <div className="d-flex flex-row">
           <h5 className="ml-1">

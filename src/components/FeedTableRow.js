@@ -29,7 +29,7 @@ const FeedsTableRow = ({ idx, setModal, url, handleDelete }) => {
       }
     }
     getFeedInfo()
-  }, [])
+  }, [url, setModal])
 
   return (
     <tr key={idx}>

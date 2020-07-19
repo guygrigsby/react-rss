@@ -6,7 +6,6 @@ import FeedList from '../components/FeedList'
 
 const Home = (props) => {
   const { feeds, setItems, setFeeds, setModal } = props
-  const feedURL = feeds[0]
 
   React.useEffect(() => {
     const getFeed = async () => {
@@ -20,7 +19,7 @@ const Home = (props) => {
           try {
             console.log('trying with cors proxy')
             const items = await rss.fetchCurrent(
-              `https://cors-anywhere.herokuapp.com/${feedURL}`,
+              `https://cors-anywhere.herokuapp.com/${feed}`,
             )
             setItems((prevState) => {
               return [...prevState, ...items]
@@ -35,7 +34,7 @@ const Home = (props) => {
       }
     }
     getFeed()
-  }, [feedURL, setItems])
+  }, [feeds, setItems, setModal])
 
   return (
     <div className="container-fluid m-2 p-2">
