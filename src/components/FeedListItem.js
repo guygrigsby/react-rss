@@ -24,7 +24,7 @@ const FeedListItem = (props) => {
     item.getElementsByTagName('atom:link')[0].getAttribute('rel')
 
   return (
-    <li>
+    <li className="w-100">
       <div
         className="list-group-item-action"
         type="button"
@@ -36,7 +36,12 @@ const FeedListItem = (props) => {
           <span className="card-header">
             <FeedHeader
               togglePaneElement={
-                <i onClick={togglePane} className={`${icon}`}></i>
+                <div
+                  onClick={togglePane}
+                  className="d-flex justify-content-center align-items-center m-2 pr-3"
+                >
+                  <i className={`${icon}`}></i>
+                </div>
               }
               {...props}
             />
