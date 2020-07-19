@@ -7,7 +7,6 @@ const Navbar = ({ title, feeds, setFeeds, menuItems }) => {
 
   const handleChange = (e) => {
     const url = e.target.value
-    console.log('update URL', url)
     setURL(url)
   }
 
@@ -15,11 +14,8 @@ const Navbar = ({ title, feeds, setFeeds, menuItems }) => {
     e.preventDefault()
     const copy = [...feeds]
     copy.push(url)
-    console.log('copy', copy)
     setFeeds(copy)
-    console.log('setting URL', url)
   }
-  console.log('feeds in nav', feeds)
 
   return (
     <nav className="navbar nav-tabs">

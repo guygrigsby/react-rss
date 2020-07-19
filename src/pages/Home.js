@@ -4,22 +4,32 @@ import rss from '../services/rss.js'
 import FeedList from '../components/FeedList'
 
 const Home = (props) => {
-  const { feedURL, setItems } = props
+  const { feeds, setItems, setModal } = props
+  const feedURL = feeds[0]
 
   React.useEffect(() => {
     const getFeed = async () => {
-      try {
-        const items = await rss.fetchCurrent(feedURL)
-        setItems(items)
-      } catch (e) {
+      for (const feed of feeds) {
         try {
-          console.log('trying with cors proxy')
-          const items = await rss.fetchCurrent(
-            `https://cors-anywhere.herokuapp.com/${feedURL}`,
-          )
-          setItems(items)
-        } catch (e2) {
-          console.log('caught exception', e, 'in Homepage')
+          const items = await rss.fetchCurrent(feed)
+          setItems((prevState) => {
+            return [...prevState, ...items]
+          })
+        } catch (e) {
+          try {
+            console.log('trying with cors proxy')
+            const items = await rss.fetchCurrent(
+              `https://cors-anywhere.herokuapp.com/${feedURL}`,
+            )
+            setItems((prevState) => {
+              return [...prevState, ...items]
+            })
+          } catch (e2) {
+            setModal({
+              title: 'Oops!',
+              msg: `Cannot retrieve feed ${feed}`,
+            })
+          }
         }
       }
     }
@@ -36,7 +46,8 @@ const Home = (props) => {
 }
 
 Home.propTypes = {
-  feedURL: PropTypes.string,
+  setModal: PropTypes.func,
+  feeds: PropTypes.arrayOf(PropTypes.string),
   setItems: PropTypes.func,
 }
 export default Home

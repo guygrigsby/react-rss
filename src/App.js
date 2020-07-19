@@ -4,7 +4,9 @@ import { Switch, Route } from 'react-router-dom'
 import Home from './pages/Home.js'
 import Saved from './pages/Saved.js'
 import RSS from './services/rss.js'
+import Storage from './services/storage.js'
 import Feeds from './pages/Feeds.js'
+import Modal from './Modals/Modal.js'
 import './App.scss'
 
 const storageKey = 'reactRssFaves'
@@ -34,19 +36,9 @@ const App = () => {
     'https://hnrss.org/frontpage',
     'https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml',
   ])
-  const [items, setItems] = useState()
+  const [items, setItems] = useState([])
   const [faves, setFaves] = useState(initialFaveState())
-  const saveFaves = (faves) => {
-    const toSave = JSON.stringify(
-      Array.from(faves).map(([key, item]) => {
-        const xml = item.outerHTML
-
-        return { key: key, item: xml }
-      }),
-    )
-
-    localStorage.setItem(storageKey, toSave)
-  }
+  const [modal, setModal] = useState(null)
 
   const toggleFave = (e, item) => {
     e.preventDefault()
@@ -61,11 +53,19 @@ const App = () => {
     }
     const m = new Map(f)
     setFaves(m)
-    saveFaves(m)
+    Storage.saveFaves(m)
   }
-
   return (
     <div className="App">
+      {modal !== null ? (
+        <Modal
+          title={modal.title}
+          msg={modal.msg}
+          closeModal={() => setModal(null)}
+        />
+      ) : (
+        ''
+      )}
       <Navbar
         title="RSS Reader"
         setFeeds={setFeeds}
@@ -91,11 +91,15 @@ const App = () => {
       <Switch>
         <Route
           path="/saved"
-          render={() => <Saved toggleFave={toggleFave} faves={faves} />}
+          render={() => (
+            <Saved setModal={setModal} toggleFave={toggleFave} faves={faves} />
+          )}
         />
         <Route
           path="/feeds"
-          render={() => <Feeds setFeeds={setFeeds} feeds={feeds} />}
+          render={() => (
+            <Feeds setModal={setModal} setFeeds={setFeeds} feeds={feeds} />
+          )}
         />
 
         <Route
@@ -105,8 +109,10 @@ const App = () => {
             <Home
               setItems={setItems}
               items={items}
+              feeds={feeds}
               faves={faves}
               toggleFave={toggleFave}
+              setModal={setModal}
             />
           )}
         />
