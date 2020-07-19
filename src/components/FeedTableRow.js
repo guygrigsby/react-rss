@@ -32,7 +32,7 @@ const FeedsTableRow = ({ idx, setModal, url, handleDelete }) => {
   }, [url, setModal])
 
   return (
-    <tr key={idx}>
+    <tr key={idx} className="w-100">
       <td id={`row-${idx}`} className="pt-3-half">
         <div
           className="mb-1"

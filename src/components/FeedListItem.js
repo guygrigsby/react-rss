@@ -27,7 +27,6 @@ const FeedListItem = (props) => {
     <li className="w-100">
       <span
         className="card list-group-item-action"
-        type="button"
         onClick={() => window.open(link, { id }, `rel=${rel}`)}
         data-toggle="collapse"
         data-target={`#collapse-${id}`}

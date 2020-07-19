@@ -21,9 +21,9 @@ const FeedList = (props) => {
     <div className="accordion" id="feedaccordian">
       <ul className="list-unstyled">
         {items.map((item, idx) => {
-          const itemID = item.querySelector('guid')?.innerHTML
+          const itemID = item.querySelector('guid').innerHTML
           return (
-            <div className="row" key={idx}>
+            <div className="row pb-10 s-1" key={idx}>
               <FeedListItem
                 key={idx}
                 id={`${idx}`}

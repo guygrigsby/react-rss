@@ -14,17 +14,19 @@ const Feeds = ({ feeds, setFeeds, setModal }) => {
   console.log('feeds', feeds, 'feeds cond', feeds && feeds.length > 0)
   return (
     <div className="container-fluid m-2 p-2">
-      <div className="row">
-        {feeds && feeds.length > 0 ? (
-          <FeedsTable
-            feeds={feeds}
-            setFeeds={setFeeds}
-            handleDelete={handleDelete}
-            setModal={setModal}
-          />
-        ) : (
-          <FeedExamples setFeeds={setFeeds} setModal={setModal} />
-        )}
+      <div className="col-lg">
+        <div className="row mr-2 pr-2">
+          {feeds && feeds.length > 0 ? (
+            <FeedsTable
+              feeds={feeds}
+              setFeeds={setFeeds}
+              handleDelete={handleDelete}
+              setModal={setModal}
+            />
+          ) : (
+            <FeedExamples setFeeds={setFeeds} setModal={setModal} />
+          )}
+        </div>
       </div>
     </div>
   )
