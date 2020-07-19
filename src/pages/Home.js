@@ -40,7 +40,7 @@ const Home = (props) => {
     <div className="container-fluid">
       <div className="col">
         {feeds && feeds.length > 0 ? (
-          <div className="col">{<FeedList {...props} />}</div>
+          <FeedList {...props} />
         ) : (
           <FeedExamples setFeeds={setFeeds} setModal={setModal} />
         )}
