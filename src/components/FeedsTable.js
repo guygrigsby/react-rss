@@ -4,7 +4,7 @@ import FeedTableRow from './FeedTableRow.js'
 
 const FeedsTable = ({ feeds, handleDelete, setModal }) => {
   return (
-    <div className="table-resposive">
+    <div className="table-responsive">
       <table className="table table-striped">
         <thead>
           <tr>
