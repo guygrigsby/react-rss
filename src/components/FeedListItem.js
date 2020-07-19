@@ -14,7 +14,6 @@ const FeedListItem = (props) => {
     setPaneOpen(!paneOpen)
   }
 
-  const windowName = 'NYTimes'
   const icon = paneOpen ? 'fa fa-minus' : 'fa fa-plus'
 
   const link =
@@ -29,7 +28,7 @@ const FeedListItem = (props) => {
       <div
         className="list-group-item-action"
         type="button"
-        onClick={() => window.open(link, windowName, `rel=${rel}`)}
+        onClick={() => window.open(link, { id }, `rel=${rel}`)}
         data-toggle="collapse"
         data-target={`#collapse-${id}`}
       >

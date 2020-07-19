@@ -23,13 +23,14 @@ const FeedList = (props) => {
         {items.map((item, idx) => {
           const itemID = item.querySelector('guid').innerHTML
           return (
-            <FeedListItem
-              key={idx}
-              id={`${idx}`}
-              isFave={faves.has(itemID)}
-              item={item}
-              {...props}
-            />
+            <div key={idx} className="row">
+              <FeedListItem
+                id={`${idx}`}
+                isFave={faves.has(itemID)}
+                item={item}
+                {...props}
+              />
+            </div>
           )
         })}
       </ul>
