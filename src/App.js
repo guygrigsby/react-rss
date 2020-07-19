@@ -57,7 +57,6 @@ const App = () => {
         ''
       )}
       <Navbar
-        title="RSS Reader"
         setFeeds={setFeeds}
         feeds={feeds}
         menuItems={[

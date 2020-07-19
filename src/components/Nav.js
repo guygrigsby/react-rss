@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
-const Navbar = ({ title, feeds, setFeeds, menuItems }) => {
+const Navbar = ({ feeds, setFeeds, menuItems }) => {
   const [url, setURL] = React.useState('')
 
   const handleChange = (e) => {
@@ -19,9 +19,6 @@ const Navbar = ({ title, feeds, setFeeds, menuItems }) => {
 
   return (
     <nav className="navbar nav-tabs">
-      <div>
-        <span className="navbar-text">{title}</span>
-      </div>
       {menuItems.map((item, idx) => (
         <Link className="nav-item button m-2" key={idx} to={item.link}>
           {item.icon} {item.name}

@@ -13,8 +13,8 @@ const Feeds = ({ feeds, setFeeds, setModal }) => {
   }
   console.log('feeds', feeds, 'feeds cond', feeds && feeds.length > 0)
   return (
-    <div className="container-fluid">
-      <div className="col-lg">
+    <div className="container-fluid mt-2">
+      <div className="col">
         <div className="row">
           {feeds && feeds.length > 0 ? (
             <FeedsTable

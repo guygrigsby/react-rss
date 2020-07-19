@@ -13,15 +13,17 @@ const feeds = [
 
 const FeedExamples = ({ setFeeds, setModal }) => {
   return (
-    <div className="col-lg p-4 s-2 border bg-light overflow-hidden">
-      <h3 className="text-center text-wrap pb-2">{'Nothing to read yet'}</h3>
+    <div className="col border bg-light overflow-hidden">
+      <h3 className="text-center text-wrap pb-2 pt-2">
+        {'Nothing to read yet'}
+      </h3>
       <p className="d-block ">
         {
           'We can add a few feeds for you to get started quicky if you like. (They are listed below) If not, add your own using the Add Feed button in at the top of the page.'
         }
       </p>
       {feeds.map((feed, idx) => (
-        <small className="row pt-2" key={`${idx}-examplefeed`}>
+        <small className="row pt-2 pl-4" key={`${idx}-examplefeed`}>
           {feed}
         </small>
       ))}
